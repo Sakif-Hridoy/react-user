@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import userData from './data/data.json';
+import User from './Component/User/User';
+import AddedUser from './Component/AddedUser/AddedUser';
+import { useState } from 'react';
 
 function App() {
+  // User Count State
+const [users,setUsers] = useState([]);
+// Event Handler Function
+const addUser = (username)=>{
+  
+  const newUserCount = [...users,username];
+  setUsers(newUserCount);
+}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2 className="total-user">Total User:{userData.length}</h2>
+  <div className="user-container">
+   <div className="userlist-container">
+   <ul>
+     {/* Component with Map */}
+      {
+        userData.map(user=> <User user={user} adduser={addUser}></User>)
+      }
+    </ul>
+   </div>
+    <div className="count-container">
+    <h4 className="count-header">This is Count</h4>
+     {/* Component */}
+    <AddedUser users={users}></AddedUser>
+
+    </div>
+  </div>
+    
     </div>
   );
 }
